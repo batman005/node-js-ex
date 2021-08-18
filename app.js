@@ -1,20 +1,14 @@
-const express= require('express');
-const path = require('path');
-const app= express();
-const port= 80;
+console.log("Application starting...");
+const express = require('express');
 
-app.use('/static',express.static('static'))
-app.use(express.urlencoded())
+const app = express();
 
 app.set('view engine','pug');
-app.set('views' , path.join(__dirname, 'views'));
+app.set('views','./views');
 
-app.get('/',(req,res) =>{
-const dances = {}
-res.status(200).render('index.pug',dances);
-})
+app.use(express.static('./public'));
+app.use(require('./routers/index'));
 
-
-app.listen(port, ()=>{
-console.log(`The application is sucessfully started at port ${port}`);
+app.listen(process.env.PORT || 3000, function functionName() {
+  console.log("Listening...");
 })
